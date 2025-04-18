@@ -40,7 +40,8 @@ contract Scheduler is IScheduler {
         address[] memory _claimers
     ) {
         require(_totalGrantAmount >= _tgeUnlockAmount, "too small total grant amount");
-        require(_tgeAt > block.timestamp, "tgeAt too early");
+        // CAUTION: comment out this line when upgrade to v2
+        // require(_tgeAt > block.timestamp, "tgeAt too early");
         tgeTimestamp = _tgeAt;
 
         tgeContract = _tgeContract;
