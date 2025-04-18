@@ -8,5 +8,6 @@ export const DeployedContracts = {
     "TgeContract": "0x1716ECE3AD0803DF784eA57a38722d66305d536f",
     "BankToken": "0x3AeE7602b612de36088F3ffEd8c8f10E86EbF2bF",
     "Airdrop": "0x0000000000000000000000000000000000000000",
+    "TGEImpl": "0x9471Be44f6fca60eA39759DAF78983ec88D94050",
   },
 }

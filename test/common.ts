@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 
 const MaxSupply = ethers.parseEther("2100000000"); // 2.1B
 const Precision = ethers.parseEther("1");
-const ReleaseConfig = {
+const ReleaseConfigV1 = {
   rewards: {
     totalPercent: ethers.parseEther("0.25"),
     tgeUnlockPercent: ethers.parseEther("0.08"),
@@ -65,8 +65,31 @@ const ReleaseConfig = {
   },
 };
 
+const ReleaseConfigV2 = {
+  investors: {
+    totalPercent: ethers.parseEther("0.25"),
+    tgeUnlockPercent: ethers.parseEther("0"),
+    cliffMonths: 12n,
+    releaseMonths: 36n,
+  },
+
+  team: {
+    totalPercent: ethers.parseEther("0.15"),
+    tgeUnlockPercent: ethers.parseEther("0"),
+    cliffMonths: 12n,
+    releaseMonths: 48n,
+  },
+
+  advisors: {
+    totalPercent: ethers.parseEther("0.05"),
+    tgeUnlockPercent: ethers.parseEther("0"),
+    cliffMonths: 12n,
+    releaseMonths: 48n,
+  }
+};
+
 export async function deployBank() {
-  const [owner,rewardClaimer, investorClaimer, ecosystemClaimer, teamClaimer, treasuryClaimer, advisorClaimer, bnClaimer, liquidityClaimer, player1] = await ethers.getSigners();
+  const [owner, rewardClaimer, investorClaimer, ecosystemClaimer, teamClaimer, treasuryClaimer, advisorClaimer, bnClaimer, liquidityClaimer, player1] = await ethers.getSigners();
   const now = (await ethers.provider.getBlock('latest'))!.timestamp;
 
   const tgeContractImpl = await ethers.deployContract("TgeContract");
@@ -123,5 +146,5 @@ export async function deployBank() {
 
   const Airdrop = await ethers.getContractAt("Airdrop", airdropProxy.target);
 
-  return { TgeContract,ReleaseConfig, MaxSupply, Precision, bank, rewardClaimer, investorClaimer, ecosystemClaimer, teamClaimer, treasuryClaimer, advisorClaimer, bnClaimer, liquidityClaimer, Airdrop, player1, owner };
+  return { TgeContract, ReleaseConfigV1, ReleaseConfigV2, MaxSupply, Precision, bank, rewardClaimer, investorClaimer, ecosystemClaimer, teamClaimer, treasuryClaimer, advisorClaimer, bnClaimer, liquidityClaimer, Airdrop, player1, owner };
 }
